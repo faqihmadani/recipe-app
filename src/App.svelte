@@ -69,13 +69,9 @@
 </script>
 
 <main>
-	<h1 class="text-primary mb-5">Find Meals for Your Ingredients</h1>
+	<h2 class="text-primary mb-5">Find Meals for Your Ingredients</h2>
 	<form on:submit|preventDefault={searchRecipe} class="search-input" action="">
-		<input
-			type="text"
-			placeholder="Write the ingredient of the food"
-			bind:value={search}
-		/>
+		<input type="text" placeholder="Write the ingredient" bind:value={search} />
 		<Button color="primary" type="submit">Search</Button>
 	</form>
 
@@ -194,13 +190,6 @@
 		justify-content: center;
 		align-items: center;
 	} */
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
 
 	@media (min-width: 640px) {
 		main {
