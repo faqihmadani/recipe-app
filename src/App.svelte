@@ -1,5 +1,6 @@
 <script>
 	import { Button } from "sveltestrap";
+	import { Spinner } from "sveltestrap";
 	import { Card } from "sveltestrap";
 	import { Modal } from "sveltestrap";
 	import { Col, Container, Row } from "sveltestrap";
@@ -10,9 +11,7 @@
 		DropdownToggle,
 	} from "sveltestrap";
 	import { Form, FormGroup, FormText, Input, Label } from "sveltestrap";
-	import data from "./mockData";
 
-	let recipes = data.results;
 	let menu = "Menu";
 
 	const changeMenu = () => {
@@ -25,30 +24,31 @@
 
 	let open = false;
 	let modalTitle = "";
-	let modalIngredients = "";
 	let modalImage = "";
-	let modalLink = "";
 	const openRecipe = (recipe) => {
 		open = true;
-		modalTitle = recipe.title;
-		modalIngredients = recipe.ingredients;
-		modalImage = recipe.thumbnail;
-		modalLink = recipe.href;
+		modalTitle = recipe.strMeal;
+		modalImage = recipe.strMealThumb;
 	};
 
 	const toggle = () => (open = !open);
 
 	let search = "";
+	let notFound = "";
 	let loading = false;
-	let page = 1;
+	let recipes = [];
 	//Fetching Data
 	async function searchRecipe(e) {
 		loading = true;
 		const response = await fetch(
-			"http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3"
+			`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`
 		);
 		const hasil = await response.json();
-		console.log(response);
+		recipes = hasil.meals;
+		loading = false;
+		if (!recipes) {
+			notFound = search;
+		}
 	}
 </script>
 
@@ -75,33 +75,35 @@
 			</DropdownMenu>
 		</Dropdown>
 	</div>
-	<div>
-		<Row class="my-5">
-			{#each recipes as recipe (recipe.href)}
-				<Col xs="4" class="my-3">
-					<div class="pointer" on:click={() => openRecipe(recipe)}>
-						<Card body>
-							<img
-								src={recipe.thumbnail}
-								class="card-img-top mb-3"
-								alt={recipe.title}
-							/>
-							<h5 class="card-title">{recipe.title}</h5>
-						</Card>
-					</div>
-				</Col>
-			{/each}
-		</Row>
-	</div>
 
-	<div class="d-flex justify-content-between">
-		{#if page > 1}
-			<Button color="primary" on:click={() => page--}>Previous Page</Button>
-		{/if}
-		<Button color="primary" on:click={() => page++} class="ml-auto"
-			>Next Page</Button
-		>
-	</div>
+	{#if loading}
+		<Spinner color="primary" />
+	{/if}
+	{#if !loading}
+		<div>
+			{#if recipes}
+				<Row class="my-5">
+					{#each recipes as recipe (recipe.idMeal)}
+						<Col xs="4" class="my-3">
+							<div class="pointer" on:click={() => openRecipe(recipe)}>
+								<Card body>
+									<img
+										src={recipe.strMealThumb}
+										class="card-img-top mb-3"
+										alt={recipe.strCategory}
+									/>
+									<h5 class="card-title">{recipe.strMeal}</h5>
+								</Card>
+							</div>
+						</Col>
+					{/each}
+				</Row>
+			{/if}
+			{#if !recipes}
+				<h3>{notFound} is not found.</h3>
+			{/if}
+		</div>
+	{/if}
 	<div>
 		<Modal body header={modalTitle} isOpen={open} {toggle}>
 			<img
@@ -110,10 +112,7 @@
 				class="img-thumbnail rounded mx-auto d-block my-2"
 			/>
 			<p class="d-block text-center font-weight-bold mt-5">Ingredients :</p>
-			<p class="ingredients text-center">{modalIngredients}</p>
-			<a href={modalLink} target="_blank" class="link text-center d-block"
-				>View recipe</a
-			>
+			<p class="ingredients text-center">oi</p>
 		</Modal>
 	</div>
 </main>
