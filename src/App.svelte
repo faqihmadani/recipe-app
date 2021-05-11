@@ -26,6 +26,7 @@
 	let menuLoading = false;
 	let menuName = "";
 	async function openRecipe(recipe) {
+		menuName = "";
 		menuLoading = true;
 		open = true;
 		const id = recipe.idMeal;
@@ -48,25 +49,33 @@
 
 	//Fetching Data
 	async function searchRecipe() {
-		loading = true;
-		const response = await fetch(
-			`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`
-		);
-		const hasil = await response.json();
-		recipes = hasil.meals;
-		loading = false;
-		searchName = search;
-		if (!recipes) {
-			notFound = search;
+		if (search === "") {
+			alert("Please input the ingredients of the food that you want to find.");
+		} else {
+			loading = true;
+			const response = await fetch(
+				`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`
+			);
+			const hasil = await response.json();
+			recipes = hasil.meals;
+			loading = false;
+			searchName = search;
+			if (!recipes) {
+				notFound = search;
+			}
+			search = "";
 		}
-		search = "";
 	}
 </script>
 
 <main>
-	<h1 class="text-primary">Recipe App</h1>
+	<h1 class="text-primary mb-5">Find Meals for Your Ingredients</h1>
 	<form on:submit|preventDefault={searchRecipe} class="search-input" action="">
-		<input type="text" placeholder="Search recipe" bind:value={search} />
+		<input
+			type="text"
+			placeholder="Write the ingredient of the food"
+			bind:value={search}
+		/>
 		<Button color="primary" type="submit">Search</Button>
 	</form>
 
