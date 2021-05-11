@@ -25,8 +25,10 @@
 	let menu = [];
 	let menuLoading = false;
 	let menuName = "";
+	let ingredientList = [];
 	async function openRecipe(recipe) {
 		if (mode === "Ingredient") {
+			ingredientList = [];
 			menuName = "";
 			menuLoading = true;
 			open = true;
@@ -38,13 +40,58 @@
 			menu = hasil.meals;
 			menuLoading = false;
 			menuName = menu[0].strMeal;
+			ingredientList.push(
+				{ i: menu[0].strIngredient1, m: menu[0].strMeasure1 },
+				{ i: menu[0].strIngredient2, m: menu[0].strMeasure2 },
+				{ i: menu[0].strIngredient3, m: menu[0].strMeasure3 },
+				{ i: menu[0].strIngredient4, m: menu[0].strMeasure4 },
+				{ i: menu[0].strIngredient5, m: menu[0].strMeasure5 },
+				{ i: menu[0].strIngredient6, m: menu[0].strMeasure6 },
+				{ i: menu[0].strIngredient7, m: menu[0].strMeasure7 },
+				{ i: menu[0].strIngredient8, m: menu[0].strMeasure8 },
+				{ i: menu[0].strIngredient9, m: menu[0].strMeasure9 },
+				{ i: menu[0].strIngredient10, m: menu[0].strMeasure10 },
+				{ i: menu[0].strIngredient11, m: menu[0].strMeasure11 },
+				{ i: menu[0].strIngredient12, m: menu[0].strMeasure12 },
+				{ i: menu[0].strIngredient13, m: menu[0].strMeasure13 },
+				{ i: menu[0].strIngredient14, m: menu[0].strMeasure14 },
+				{ i: menu[0].strIngredient15, m: menu[0].strMeasure15 },
+				{ i: menu[0].strIngredient16, m: menu[0].strMeasure16 },
+				{ i: menu[0].strIngredient17, m: menu[0].strMeasure17 },
+				{ i: menu[0].strIngredient18, m: menu[0].strMeasure18 },
+				{ i: menu[0].strIngredient19, m: menu[0].strMeasure19 },
+				{ i: menu[0].strIngredient20, m: menu[0].strMeasure20 }
+			);
 		} else if (mode === "Menu") {
+			ingredientList = [];
 			menuName = "";
 			menuLoading = true;
 			open = true;
 			menu = recipe;
 			menuLoading = false;
 			menuName = menu.strMeal;
+			ingredientList.push(
+				{ i: menu.strIngredient1, m: menu.strMeasure1 },
+				{ i: menu.strIngredient2, m: menu.strMeasure2 },
+				{ i: menu.strIngredient3, m: menu.strMeasure3 },
+				{ i: menu.strIngredient4, m: menu.strMeasure4 },
+				{ i: menu.strIngredient5, m: menu.strMeasure5 },
+				{ i: menu.strIngredient6, m: menu.strMeasure6 },
+				{ i: menu.strIngredient7, m: menu.strMeasure7 },
+				{ i: menu.strIngredient8, m: menu.strMeasure8 },
+				{ i: menu.strIngredient9, m: menu.strMeasure9 },
+				{ i: menu.strIngredient10, m: menu.strMeasure10 },
+				{ i: menu.strIngredient11, m: menu.strMeasure11 },
+				{ i: menu.strIngredient12, m: menu.strMeasure12 },
+				{ i: menu.strIngredient13, m: menu.strMeasure13 },
+				{ i: menu.strIngredient14, m: menu.strMeasure14 },
+				{ i: menu.strIngredient15, m: menu.strMeasure15 },
+				{ i: menu.strIngredient16, m: menu.strMeasure16 },
+				{ i: menu.strIngredient17, m: menu.strMeasure17 },
+				{ i: menu.strIngredient18, m: menu.strMeasure18 },
+				{ i: menu.strIngredient19, m: menu.strMeasure19 },
+				{ i: menu.strIngredient20, m: menu.strMeasure20 }
+			);
 		}
 	}
 
@@ -99,7 +146,7 @@
 </script>
 
 <main>
-	<h2 class="text-primary mb-5">Find Your Meals</h2>
+	<h2 class="text-primary mb-5">Recipe App</h2>
 	<form on:submit|preventDefault={searchRecipe} class="search-input" action="">
 		<input
 			type="text"
@@ -180,6 +227,14 @@
 				/>
 				<p class="d-block text-center font-weight-bold">Category :</p>
 				<p class="ingredients text-center">{menu[0].strCategory}</p>
+				<p class="d-block text-center font-weight-bold">Ingredients :</p>
+				<ul>
+					{#each ingredientList as list}
+						{#if list.i != "" && list.i != null}
+							<li>{list.i} ({list.m})</li>
+						{/if}
+					{/each}
+				</ul>
 				<p class="d-block text-center font-weight-bold">Instructions :</p>
 				<p class="ingredients">{menu[0].strInstructions}</p>
 				<a href={menu[0].strYoutube} class="youtube" target="_blank"
@@ -194,6 +249,14 @@
 				/>
 				<p class="d-block text-center font-weight-bold">Category :</p>
 				<p class="ingredients text-center">{menu.strCategory}</p>
+				<p class="d-block text-center font-weight-bold">Ingredients :</p>
+				<ul>
+					{#each ingredientList as list}
+						{#if list.i != "" && list.i != null}
+							<li>{list.i} ({list.m})</li>
+						{/if}
+					{/each}
+				</ul>
 				<p class="d-block text-center font-weight-bold">Instructions :</p>
 				<p class="ingredients">{menu.strInstructions}</p>
 				<a href={menu.strYoutube} class="youtube" target="_blank">Watch Video</a
