@@ -4,9 +4,14 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
-Sebuah app yang berfungsi untuk mencari resep, instruksi pembuatan, dan video tutorial membuat suatu makanan berdasarkan nama ataupun bahan masakan yang digunakan. Dibuat menggunakan Svete JS, Bootstarp dan Vercel. API yang saya gunakan berasal dari [TheMealDB.com](https://www.themealdb.com/).
+An app that has a function to search for recipes, cooking instructions, and video tutorials to make a food based on the name or the ingredients used. API comes from [TheMealDB.com](https://www.themealdb.com/).
 
-[Link menuju demo page.](https://recipe-app-navy.vercel.app/)
+Tech Stack :
+- Svelte JS
+- Bootstrap
+- Vercel
+
+[:link: Link to demo page.](https://recipe-app-navy.vercel.app/)
 
 ### Screenshots
 ![food1](https://user-images.githubusercontent.com/76164968/178096186-055b014a-368c-4337-9a68-bc00d3d425c7.PNG)
